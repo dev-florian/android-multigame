@@ -41,4 +41,8 @@
     <string name="relancer">Relancer</string>
     <string name="quitter">Quitter</string>
     <string name="splashscreentxt">Chargement...</string>
+
+    <string name="settings_title">Paramètres</string>
+    <string name="settings_score">0</string>
+    <string name="settings_game_name">Name of game</string>
 </resources>

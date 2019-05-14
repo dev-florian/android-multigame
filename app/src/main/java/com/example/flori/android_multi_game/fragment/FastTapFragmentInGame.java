@@ -19,6 +19,8 @@ import android.widget.TextView;
 import com.example.flori.android_multi_game.EndGameActivity;
 import com.example.flori.android_multi_game.MainActivity;
 import com.example.flori.android_multi_game.R;
+import com.example.flori.android_multi_game.manager.PlayerManager;
+import com.example.flori.android_multi_game.model.Player;
 import com.example.flori.android_multi_game.utils.GameUtils;
 
 import java.util.Objects;
@@ -62,7 +64,7 @@ public class FastTapFragmentInGame extends Fragment implements GestureDetector.O
     }
 
 
-    public void startTimer(View view) {
+    public void startTimer(View view, final String gameName) {
 
         final TextView timer = view.findViewById(R.id.fragment_fasttap_time);
 
@@ -72,6 +74,15 @@ public class FastTapFragmentInGame extends Fragment implements GestureDetector.O
             }
 
             public void onFinish() {
+
+                Player player = PlayerManager.getInstance().getPlayer();
+                if (gameName == "fasttap") {
+                    player.setScoreFasttap(scoreTotal);
+                }
+                if (gameName == "swipe") {
+                    player.setScoreSwipe(scoreTotal);
+                }
+
 
                 Intent intent = new Intent(getActivity(), EndGameActivity.class);
                 intent.putExtra("SCORE", scoreTotal);
@@ -97,7 +108,7 @@ public class FastTapFragmentInGame extends Fragment implements GestureDetector.O
 
         number = getRandomNumber(numberMin, numberMax);
 
-        startTimer(view);
+        startTimer(view, "fasttap");
 
         if (number == 0) {
             tap.setText("Tap");
@@ -160,7 +171,7 @@ public class FastTapFragmentInGame extends Fragment implements GestureDetector.O
 
 
         generate();
-        startTimer(view);
+        startTimer(view, "swipe");
 
 
         View.OnTouchListener gestureListener = new View.OnTouchListener() {

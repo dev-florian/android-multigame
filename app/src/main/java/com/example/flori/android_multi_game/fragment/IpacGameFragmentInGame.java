@@ -22,6 +22,8 @@ import android.widget.TextView;
 import com.example.flori.android_multi_game.EndGameActivity;
 import com.example.flori.android_multi_game.MainActivity;
 import com.example.flori.android_multi_game.R;
+import com.example.flori.android_multi_game.manager.PlayerManager;
+import com.example.flori.android_multi_game.model.Player;
 import com.example.flori.android_multi_game.utils.GameUtils;
 
 import java.util.Objects;
@@ -70,7 +72,7 @@ public class IpacGameFragmentInGame extends Fragment {
                             Objects.requireNonNull(getActivity()).getSystemService(Context.INPUT_METHOD_SERVICE);
 
                     if (inputManager != null) {
-                        inputManager.hideSoftInputFromWindow( Objects.requireNonNull(getActivity().getCurrentFocus()).getWindowToken(),
+                        inputManager.hideSoftInputFromWindow(Objects.requireNonNull(getActivity().getCurrentFocus()).getWindowToken(),
                                 InputMethodManager.HIDE_NOT_ALWAYS);
                     }
 
@@ -84,6 +86,10 @@ public class IpacGameFragmentInGame extends Fragment {
 
 
                     if (number == numberToFind) {
+                        Player player = PlayerManager.getInstance().getPlayer();
+
+                        player.setScoreIpac(numberRemaining);
+
                         Intent intent = new Intent(getActivity(), EndGameActivity.class);
                         intent.putExtra("SCORE", numberRemaining);
                         GameUtils.launchView((AppCompatActivity) getActivity(), intent, false);

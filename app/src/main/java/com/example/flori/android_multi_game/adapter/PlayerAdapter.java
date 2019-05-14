@@ -1,11 +1,8 @@
 package com.example.flori.android_multi_game.adapter;
 
-import android.app.Activity;
-import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
-import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,7 +12,6 @@ import android.widget.TextView;
 
 import com.example.flori.android_multi_game.MainActivity;
 import com.example.flori.android_multi_game.R;
-import com.example.flori.android_multi_game.ShowPlayerActivityRow;
 import com.example.flori.android_multi_game.manager.PlayerManager;
 import com.example.flori.android_multi_game.model.Player;
 import com.example.flori.android_multi_game.utils.GameUtils;

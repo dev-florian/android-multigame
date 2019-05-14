@@ -51,5 +51,11 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme"
             />
+
+        <activity
+            android:name=".ShowScoreRow"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme"
+            />
     </application>
 </manifest>

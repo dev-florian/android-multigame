@@ -23,6 +23,8 @@ import android.widget.TextView;
 import com.example.flori.android_multi_game.EndGameActivity;
 import com.example.flori.android_multi_game.MainActivity;
 import com.example.flori.android_multi_game.R;
+import com.example.flori.android_multi_game.manager.PlayerManager;
+import com.example.flori.android_multi_game.model.Player;
 import com.example.flori.android_multi_game.utils.TouchListener;
 import com.example.flori.android_multi_game.utils.GameUtils;
 import java.util.Objects;
@@ -104,6 +106,8 @@ public class DragnDropFragmentInGame extends Fragment implements View.OnDragList
 
             public void onFinish() {
 
+                Player player = PlayerManager.getInstance().getPlayer();
+                player.setScoreDragndrop(scoreTotal);
                 Intent intent = new Intent(getActivity(), EndGameActivity.class);
                 intent.putExtra("SCORE", scoreTotal);
                 GameUtils.launchView((AppCompatActivity) Objects.requireNonNull(getActivity()), intent, false);

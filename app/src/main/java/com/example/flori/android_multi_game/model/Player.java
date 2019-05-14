@@ -11,10 +11,15 @@ public class Player extends RealmObject {
     private int age;
     private String localisation;
     private String picture;
+    private int score_dragndrop;
+    private int score_swipe;
+    private int score_fasttap;
+    private int score_ipac;
 
-    public Player(){}
+    public Player() {
+    }
 
-    public Player(String name, String firstName, int age, String localisation, String picture){
+    public Player(String name, String firstName, int age, String localisation, String picture) {
         setName(name);
         setFirstName(firstName);
         setAge(age);
@@ -60,5 +65,37 @@ public class Player extends RealmObject {
 
     private void setPicture(String picture) {
         this.picture = picture;
+    }
+
+    public int getScoreDragndrop() {
+        return score_dragndrop;
+    }
+
+    public void setScoreDragndrop(int score_dragndrop) {
+        this.score_dragndrop = score_dragndrop;
+    }
+
+    public int getScoreSwipe() {
+        return score_swipe;
+    }
+
+    public void setScoreSwipe(int score_swipe) {
+        this.score_swipe = score_swipe;
+    }
+
+    public int getScoreFasttap() {
+        return score_fasttap;
+    }
+
+    public void setScoreFasttap(int score_fasttap) {
+        this.score_fasttap = score_fasttap;
+    }
+
+    public int getScoreIpac() {
+        return score_ipac;
+    }
+
+    public void setScoreIpac(int score_ipac) {
+        this.score_ipac = score_ipac;
     }
 }
