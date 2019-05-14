@@ -1,74 +1,69 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".ShowPlayerActivityRow"
+    android:id="@+id/pick_player"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:id="@+id/pick_player"
-    >
+    tools:context=".ShowPlayerActivityRow">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:orientation="horizontal"
-        android:background="@drawable/border"
-        android:paddingEnd="100dp"
-        android:paddingStart="0dp"
         android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="10dp"
+        android:layout_marginRight="10dp"
+        android:background="@drawable/border"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:paddingStart="0dp"
         android:paddingTop="10dp"
+        android:paddingEnd="100dp"
         android:paddingBottom="10dp"
-        >
+        tools:ignore="UselessParent">
+
         <ImageView
             android:id="@+id/show_player_image"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:src="@drawable/placeholder"
-            />
+            android:contentDescription="@string/app_name"
+            android:src="@drawable/placeholder" />
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:orientation="vertical"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
-            >
+            android:gravity="center"
+            android:orientation="vertical">
 
             <TextView
                 android:id="@+id/show_player_name"
-                android:hint="@string/show_player_name"
-                android:layout_height="wrap_content"
                 android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/show_player_name"
                 android:inputType="text"
-
-                />
+                tools:ignore="TextViewEdits" />
 
             <TextView
                 android:id="@+id/show_player_firstname"
-                android:hint="@string/show_player_firstname"
-                android:layout_height="wrap_content"
                 android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/show_player_firstname"
                 android:inputType="text"
-                />
+                tools:ignore="TextViewEdits" />
 
         </LinearLayout>
 
         <TextView
             android:id="@+id/show_player_score"
-            android:hint="@string/show_player_score"
-            android:layout_height="wrap_content"
             android:layout_width="wrap_content"
-            android:inputType="text"
+            android:layout_height="wrap_content"
             android:layout_marginStart="70dp"
-            />
+            android:hint="@string/show_player_score"
+            android:inputType="text"
+            tools:ignore="TextViewEdits" />
 
     </LinearLayout>
-
-
-
 </LinearLayout>

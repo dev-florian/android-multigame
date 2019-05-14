@@ -13,144 +13,137 @@
         android:layout_width="match_parent"
         android:layout_height="125dp"
         android:background="@color/colorBlue"
-        />
+        android:contentDescription="@string/app_name" />
 
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/colorWhite"
         android:layout_below="@+id/background_blue"
-        />
+        android:background="@color/colorWhite"
+        android:contentDescription="@string/app_name" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center"
-        android:orientation="vertical"
-        >
+        android:orientation="vertical">
 
 
-    <Space
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="0.2"
-        />
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.2" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/createPlayerWelcome"
-        android:textSize="50sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:textColor="@color/colorWhite"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/createPlayerWelcome"
+            android:textColor="@color/colorWhite"
+            android:textSize="50sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <Space
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="0.5"
-        />
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.5" />
 
-    <ImageView
-        android:id="@+id/create_player_image"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:src="@drawable/placeholder"
-        />
+        <ImageView
+            android:id="@+id/create_player_image"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:contentDescription="@string/app_name"
+            android:src="@drawable/placeholder" />
 
-    <Space
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="0.5"
-        />
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.5" />
 
-    <EditText
-        android:id="@+id/create_player_name"
-        android:hint="@string/create_player_name"
-        android:layout_height="wrap_content"
-        android:layout_width="match_parent"
-        android:inputType="text"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        />
+        <EditText
+            android:id="@+id/create_player_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:hint="@string/create_player_name"
+            android:inputType="text"
+            tools:ignore="Autofill" />
 
-    <EditText
-        android:id="@+id/create_player_firstname"
-        android:hint="@string/create_player_firstname"
-        android:layout_height="wrap_content"
-        android:layout_width="match_parent"
-        android:inputType="text"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        />
+        <EditText
+            android:id="@+id/create_player_firstname"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:hint="@string/create_player_firstname"
+            android:inputType="text"
+            tools:ignore="Autofill" />
 
-    <EditText
-        android:id="@+id/create_player_age"
-        android:hint="@string/create_player_age"
-        android:layout_height="wrap_content"
-        android:layout_width="match_parent"
-        android:inputType="text"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        />
+        <EditText
+            android:id="@+id/create_player_age"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:hint="@string/create_player_age"
+            android:inputType="text"
+            tools:ignore="Autofill" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="40dp"
-            android:orientation="horizontal"
-            >
+            android:orientation="horizontal">
 
             <EditText
                 android:id="@+id/create_player_localisation"
-                android:hint="@string/create_player_localisation"
-                android:layout_height="wrap_content"
                 android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
                 android:layout_weight="1"
+                android:hint="@string/create_player_localisation"
                 android:inputType="text"
-                android:layout_marginLeft="20dp"
-                />
+                tools:ignore="Autofill" />
 
             <ImageView
                 android:id="@+id/create_player_localisation_gps"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                android:layout_marginRight="20dp"
-                android:src="@drawable/localisation"
-                />
+                android:layout_marginEnd="20dp"
+                android:contentDescription="@string/app_name"
+                android:src="@drawable/localisation" />
         </LinearLayout>
 
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
 
-    <Space
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        />
+        <Button
+            android:id="@+id/create_player_btn_players"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="20dp"
+            android:background="@color/colorPrimaryDark"
+            android:text="@string/create_player_btn_players"
+            android:textColor="@color/colorWhite"
+            android:textSize="20sp" />
 
-    <Button
-        android:id="@+id/create_player_btn_players"
-        android:layout_width="match_parent"
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="10dp"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
-        android:textSize="20sp"
-        android:textColor="@color/colorWhite"
-        android:background="@color/colorPrimaryDark"
-        android:text="@string/create_player_btn_players" />
-
-    <Button
-        android:id="@+id/create_player_btn_validate"
-        android:layout_width="match_parent"
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="10dp"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
-        android:textSize="20sp"
-        android:textColor="@color/colorWhite"
-        android:background="@color/colorPrimaryDark"
-        android:text="@string/create_player_btn_validate" />
+        <Button
+            android:id="@+id/create_player_btn_validate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="20dp"
+            android:background="@color/colorPrimaryDark"
+            android:text="@string/create_player_btn_validate"
+            android:textColor="@color/colorWhite"
+            android:textSize="20sp" />
 
     </LinearLayout>
 

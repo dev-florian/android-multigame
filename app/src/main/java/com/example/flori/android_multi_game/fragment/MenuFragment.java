@@ -24,34 +24,39 @@ public class MenuFragment extends Fragment {
         final RelativeLayout frameLayout = view.findViewById(R.id.fragment_fasttap);
         final Button start = view.findViewById(R.id.fragment_fasttap_start);
 
-        final String menu = getArguments().getString("MENU");
+
+        String menu = null;
+        if (getArguments() != null) {
+            menu = getArguments().getString("MENU");
+        }
 
         TextView gameName = view.findViewById(R.id.fragment_fasttap_game_txt);
 
-        if (menu.equals("fasttap")) {
+        if (menu != null && menu.equals("fasttap")) {
             gameName.setText("Fast Tap !");
         }
-        if (menu.equals("swipe")) {
+        if (menu != null && menu.equals("swipe")) {
             gameName.setText("Swipe !");
         }
-        if (menu.equals("dragndrop")) {
+        if (menu != null && menu.equals("dragndrop")) {
             gameName.setText("Drag N Drop !");
         }
-        if (menu.equals("IpacGame")) {
+        if (menu != null && menu.equals("IpacGame")) {
             gameName.setText("IPAC Game !");
         }
 
+        final String finalMenu = menu;
         start.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (menu.equals("fasttap")) {
+                if (finalMenu != null && finalMenu.equals("fasttap")) {
                     FastTapFragmentInGame fragment = new FastTapFragmentInGame();
                     Bundle bundle = new Bundle();
                     bundle.putString("GAME", "fasttap");
                     fragment.setArguments(bundle);
                     GameUtils.addFragmentToFragment(MenuFragment.this, fragment, frameLayout.getId());
                 }
-                if (menu.equals("swipe")) {
+                if (finalMenu != null && finalMenu.equals("swipe")) {
                     FastTapFragmentInGame fragment = new FastTapFragmentInGame();
                     Bundle bundle = new Bundle();
                     bundle.putString("GAME", "swipe");
@@ -59,12 +64,12 @@ public class MenuFragment extends Fragment {
                     GameUtils.addFragmentToFragment(MenuFragment.this, fragment, frameLayout.getId());
                 }
 
-                if (menu.equals("dragndrop")) {
+                if (finalMenu != null && finalMenu.equals("dragndrop")) {
                     DragnDropFragmentInGame fragment = new DragnDropFragmentInGame();
                     GameUtils.addFragmentToFragment(MenuFragment.this, fragment, frameLayout.getId());
                 }
 
-                if (menu.equals("IpacGame")) {
+                if (finalMenu != null && finalMenu.equals("IpacGame")) {
                     IpacGameFragmentInGame fragment = new IpacGameFragmentInGame();
                     GameUtils.addFragmentToFragment(MenuFragment.this, fragment, frameLayout.getId());
                 }

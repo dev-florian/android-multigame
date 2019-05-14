@@ -17,13 +17,14 @@ import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.flori.android_multi_game.EndGameActivity;
 import com.example.flori.android_multi_game.MainActivity;
 import com.example.flori.android_multi_game.R;
 import com.example.flori.android_multi_game.utils.GameUtils;
+
+import java.util.Objects;
 
 public class IpacGameFragmentInGame extends Fragment {
 
@@ -32,16 +33,13 @@ public class IpacGameFragmentInGame extends Fragment {
     private TextView numberOfTry;
     private TextView moreOrLess;
     private Button validate;
-    private Boolean mybool;
-    private Intent intent;
     private int numberRemaining = NUMBER_OF_TRY;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        ((MainActivity) getActivity()).viewPager.setPagingEnabled(false);
+        ((MainActivity) Objects.requireNonNull(getActivity())).viewPager.setPagingEnabled(false);
         final View view = inflater.inflate(R.layout.fragment_ipac_game, container, false);
-        final RelativeLayout dragndrop = view.findViewById(R.id.fragment_ipacgame_ingame);
 
         numberOfTry = view.findViewById(R.id.main_number_try);
         numberEd = view.findViewById(R.id.main_number);
@@ -69,10 +67,12 @@ public class IpacGameFragmentInGame extends Fragment {
                     int number = Integer.valueOf(numberEd.getText().toString());
 
                     InputMethodManager inputManager = (InputMethodManager)
-                            ((MainActivity) getActivity()).getSystemService(Context.INPUT_METHOD_SERVICE);
+                            Objects.requireNonNull(getActivity()).getSystemService(Context.INPUT_METHOD_SERVICE);
 
-                    inputManager.hideSoftInputFromWindow( ((MainActivity) getActivity()).getCurrentFocus().getWindowToken(),
-                            InputMethodManager.HIDE_NOT_ALWAYS);
+                    if (inputManager != null) {
+                        inputManager.hideSoftInputFromWindow( Objects.requireNonNull(getActivity().getCurrentFocus()).getWindowToken(),
+                                InputMethodManager.HIDE_NOT_ALWAYS);
+                    }
 
 
                     numberEd.getText().clear();
@@ -87,7 +87,9 @@ public class IpacGameFragmentInGame extends Fragment {
                         Intent intent = new Intent(getActivity(), EndGameActivity.class);
                         intent.putExtra("SCORE", numberRemaining);
                         GameUtils.launchView((AppCompatActivity) getActivity(), intent, false);
-                        IpacGameFragmentInGame.this.getFragmentManager().popBackStack();
+                        if (IpacGameFragmentInGame.this.getFragmentManager() != null) {
+                            IpacGameFragmentInGame.this.getFragmentManager().popBackStack();
+                        }
                         ((MainActivity) getActivity()).viewPager.setPagingEnabled(true);
                     } else {
                         numberRemaining--;
@@ -95,7 +97,9 @@ public class IpacGameFragmentInGame extends Fragment {
                             Intent intent = new Intent(getActivity(), EndGameActivity.class);
                             intent.putExtra("SCORE", numberRemaining);
                             GameUtils.launchView((AppCompatActivity) getActivity(), intent, false);
-                            IpacGameFragmentInGame.this.getFragmentManager().popBackStack();
+                            if (IpacGameFragmentInGame.this.getFragmentManager() != null) {
+                                IpacGameFragmentInGame.this.getFragmentManager().popBackStack();
+                            }
                             ((MainActivity) getActivity()).viewPager.setPagingEnabled(true);
                         }
 

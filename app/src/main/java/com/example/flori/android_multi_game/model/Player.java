@@ -34,7 +34,7 @@ public class Player extends RealmObject {
         return firstName;
     }
 
-    public void setFirstName(String firstName) {
+    private void setFirstName(String firstName) {
         this.firstName = firstName;
     }
 
@@ -42,7 +42,7 @@ public class Player extends RealmObject {
         return age;
     }
 
-    public void setAge(int age) {
+    private void setAge(int age) {
         this.age = age;
     }
 
@@ -50,7 +50,7 @@ public class Player extends RealmObject {
         return localisation;
     }
 
-    public void setLocalisation(String localisation) {
+    private void setLocalisation(String localisation) {
         this.localisation = localisation;
     }
 
@@ -58,7 +58,7 @@ public class Player extends RealmObject {
         return picture;
     }
 
-    public void setPicture(String picture) {
+    private void setPicture(String picture) {
         this.picture = picture;
     }
 }

@@ -1,14 +1,10 @@
 package com.example.flori.android_multi_game.fragment;
 
 import android.annotation.TargetApi;
-import android.content.ClipData;
 import android.content.ClipDescription;
 import android.content.Intent;
-import android.content.res.ColorStateList;
 import android.graphics.Color;
-import android.graphics.ColorFilter;
 import android.graphics.PorterDuff;
-import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.CountDownTimer;
 import android.support.annotation.RequiresApi;
@@ -20,29 +16,22 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.DragEvent;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
-
 import com.example.flori.android_multi_game.EndGameActivity;
 import com.example.flori.android_multi_game.MainActivity;
 import com.example.flori.android_multi_game.R;
 import com.example.flori.android_multi_game.utils.TouchListener;
 import com.example.flori.android_multi_game.utils.GameUtils;
-
+import java.util.Objects;
 import java.util.Random;
 
 public class DragnDropFragmentInGame extends Fragment implements View.OnDragListener {
     private int scoreTotal = 0;
     private TextView score;
     private View round;
-    private int number;
-
     private View rectangletop1;
     private View rectangletop2;
     private View rectanglemiddle1;
@@ -50,19 +39,13 @@ public class DragnDropFragmentInGame extends Fragment implements View.OnDragList
     private View rectanglebottom1;
     private View rectanglebottom2;
     private View currentView;
-
     int widthContent;
     int heightContent;
-    int heighttop;
-    int heightbottom;
-    int widthleft;
-    int widthright;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable final ViewGroup container, @Nullable Bundle savedInstanceState) {
-        ((MainActivity) getActivity()).viewPager.setPagingEnabled(false);
+        ((MainActivity) Objects.requireNonNull(getActivity())).viewPager.setPagingEnabled(false);
         final View view = inflater.inflate(R.layout.fragment_drag_n_drop, container, false);
-        final RelativeLayout dragndrop = view.findViewById(R.id.fragment_dragndrop_ingame);
         score = view.findViewById(R.id.fragment_fasttap_score);
         round = view.findViewById(R.id.roundToDrag);
 
@@ -93,27 +76,16 @@ public class DragnDropFragmentInGame extends Fragment implements View.OnDragList
             @Override
             public void onGlobalLayout() {
                 // Ensure you call it only once :
-                view.getViewTreeObserver().removeGlobalOnLayoutListener(this);
-                int Containerwidth = container.getWidth();
-                int Containerheight = container.getHeight();
-
-                int viewWidthTop = rectangletop1.getWidth();
+                int containerWidth = container != null ? container.getWidth() : 0;
+                int containerHeight = container != null ? container.getHeight() : 0;
                 int viewHeightTop = rectangletop1.getHeight();
-
-                int viewWidthBottom = rectanglebottom1.getWidth();
                 int viewHeightBottom = rectanglebottom1.getHeight();
-
                 int viewWidthleft = rectanglemiddle1.getWidth();
-                int viewHeightleft = rectanglemiddle1.getHeight();
-
                 int viewWidthtright = rectanglemiddle3.getWidth();
-                int viewHeightright = rectanglemiddle3.getHeight();
-
-                int viewWidthtround = round.getWidth();
                 int viewHeightround = round.getHeight();
 
-                widthContent = Containerwidth - viewWidthleft - viewWidthtright - viewHeightround;
-                heightContent = Containerheight - viewHeightTop - viewHeightBottom - viewHeightround;
+                widthContent = containerWidth - viewWidthleft - viewWidthtright - viewHeightround;
+                heightContent = containerHeight - viewHeightTop - viewHeightBottom - viewHeightround;
 
             }
         });
@@ -134,8 +106,10 @@ public class DragnDropFragmentInGame extends Fragment implements View.OnDragList
 
                 Intent intent = new Intent(getActivity(), EndGameActivity.class);
                 intent.putExtra("SCORE", scoreTotal);
-                GameUtils.launchView((AppCompatActivity) getActivity(), intent, false);
-                DragnDropFragmentInGame.this.getFragmentManager().popBackStack();
+                GameUtils.launchView((AppCompatActivity) Objects.requireNonNull(getActivity()), intent, false);
+                if (DragnDropFragmentInGame.this.getFragmentManager() != null) {
+                    DragnDropFragmentInGame.this.getFragmentManager().popBackStack();
+                }
                 ((MainActivity) getActivity()).viewPager.setPagingEnabled(true);
             }
         }.start();
@@ -198,9 +172,7 @@ public class DragnDropFragmentInGame extends Fragment implements View.OnDragList
                 return true;
             case DragEvent.ACTION_DROP:
                 // Gets the item containing the dragged data
-                ClipData.Item item = event.getClipData().getItemAt(0);
                 // Gets the text data from the item.
-                String dragData = item.getText().toString();
 
                 // Displays a message containing the dragged data.
 //                Toast.makeText(this, "Dragged data is " + dragData, Toast.LENGTH_SHORT).show();
@@ -250,13 +222,6 @@ public class DragnDropFragmentInGame extends Fragment implements View.OnDragList
                 // Invalidates the view to force a redraw
                 v.invalidate();
 
-                // Does a getResult(), and displays what happened.
-                if (event.getResult()) {
-                    String a = "In if";
-                } else {
-                    String a = "else";
-//                // returns true; the value is ignored.
-                }
                 round.setVisibility(View.VISIBLE);
                 return true;
 
@@ -274,7 +239,7 @@ public class DragnDropFragmentInGame extends Fragment implements View.OnDragList
     }
 
     public void generate() {
-        number = getRandomNumber(0, 5);
+        int number = getRandomNumber(0, 5);
 
         if (number == 0) {
             currentView = rectangletop1;
@@ -303,12 +268,8 @@ public class DragnDropFragmentInGame extends Fragment implements View.OnDragList
     }
 
     public int getRandomNumber(int first, int second) {
-        int min = first;
-        int max = second;
-
         Random random = new Random();
-        int randomNumber = random.nextInt(max - min + 1) + min;
-        return randomNumber;
+        return random.nextInt(second - first + 1) + first;
     }
 
     public void newRoundPosition(View view) {

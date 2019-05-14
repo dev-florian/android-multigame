@@ -1,6 +1,5 @@
 package com.example.flori.android_multi_game;
 
-import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentStatePagerAdapter;
@@ -18,7 +17,6 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSelectedListener, ViewPager.OnPageChangeListener {
 
     public CustomViewPager viewPager;
-    private TabLayout tabLayout;
 
 
     @Override
@@ -27,7 +25,7 @@ public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSe
         setContentView(R.layout.activity_main);
 
         viewPager = findViewById(R.id.activity_main_pager);
-        tabLayout = findViewById(R.id.activity_main_tab_layout);
+        TabLayout tabLayout = findViewById(R.id.activity_main_tab_layout);
 
         tabLayout.addOnTabSelectedListener(this);
         viewPager.addOnPageChangeListener(this);
@@ -71,7 +69,6 @@ public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSe
                 return fragments.size();
             }
 
-            @Nullable
             @Override
             public CharSequence getPageTitle(int position) {
                 switch (position) {
@@ -107,7 +104,9 @@ public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSe
         for (Fragment fragment : getSupportFragmentManager().getFragments()) {
             for (Fragment subFragment : fragment.getChildFragmentManager().getFragments()) {
                 if (subFragment instanceof FastTapFragmentInGame) {
-                    subFragment.getFragmentManager().popBackStack();
+                    if (subFragment.getFragmentManager() != null) {
+                        subFragment.getFragmentManager().popBackStack();
+                    }
                 }
             }
         }

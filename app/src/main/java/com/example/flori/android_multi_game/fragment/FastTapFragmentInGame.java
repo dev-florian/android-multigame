@@ -1,42 +1,33 @@
 package com.example.flori.android_multi_game.fragment;
 
-import android.app.Activity;
+import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.support.v4.view.ViewPager;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
-import android.view.GestureDetector.OnGestureListener;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
-import android.view.GestureDetector;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.example.flori.android_multi_game.CreatePlayerActivity;
 import com.example.flori.android_multi_game.EndGameActivity;
 import com.example.flori.android_multi_game.MainActivity;
 import com.example.flori.android_multi_game.R;
-import com.example.flori.android_multi_game.ShowPlayerActivity;
 import com.example.flori.android_multi_game.utils.GameUtils;
-import com.example.flori.android_multi_game.utils.CustomViewPager;
 
-import org.w3c.dom.Text;
-
+import java.util.Objects;
 import java.util.Random;
 
 public class FastTapFragmentInGame extends Fragment implements GestureDetector.OnGestureListener {
     private int scoreTotal = 0;
-    private int numbermin;
-    private int numbermax;
+    private int numberMin;
+    private int numberMax;
     private int number;
     private GestureDetector gestureDetector;
 
@@ -48,27 +39,30 @@ public class FastTapFragmentInGame extends Fragment implements GestureDetector.O
 
         View view = inflater.inflate(R.layout.fragment_fast_tap_ingame, container, false);
 
-        final RelativeLayout fasttapcontainer = view.findViewById(R.id.fragment_fasttap_ingame);
+        final RelativeLayout fastTapContainer = view.findViewById(R.id.fragment_fasttap_ingame);
         score = view.findViewById(R.id.fragment_fasttap_score);
         tap = view.findViewById(R.id.fragment_fasttap_tap);
 
 
-        String game = getArguments().getString("GAME");
-        if (game.equals("fasttap")) {
-            LaunchClickGame(inflater, container, view, fasttapcontainer, score, tap);
+        String game = null;
+        if (getArguments() != null) {
+            game = getArguments().getString("GAME");
+        }
+        if (game != null && game.equals("fasttap")) {
+            LaunchClickGame(inflater, container, view, fastTapContainer, score, tap);
         }
 
-        if (game.equals("swipe")) {
-            ((MainActivity) getActivity()).viewPager.setPagingEnabled(false);
+        if (game != null && game.equals("swipe")) {
+            ((MainActivity) Objects.requireNonNull(getActivity())).viewPager.setPagingEnabled(false);
 
-            LaunchSwipeGame(inflater, container, view, fasttapcontainer, score, tap);
+            LaunchSwipeGame(inflater, container, view, fastTapContainer, score, tap);
         }
 
         return view;
     }
 
 
-    public void startTimer(LayoutInflater inflater, ViewGroup container, View view) {
+    public void startTimer(View view) {
 
         final TextView timer = view.findViewById(R.id.fragment_fasttap_time);
 
@@ -81,31 +75,29 @@ public class FastTapFragmentInGame extends Fragment implements GestureDetector.O
 
                 Intent intent = new Intent(getActivity(), EndGameActivity.class);
                 intent.putExtra("SCORE", scoreTotal);
-                GameUtils.launchView((AppCompatActivity) getActivity(), intent, false);
-                FastTapFragmentInGame.this.getFragmentManager().popBackStack();
+                GameUtils.launchView((AppCompatActivity) Objects.requireNonNull(getActivity()), intent, false);
+                if (FastTapFragmentInGame.this.getFragmentManager() != null) {
+                    FastTapFragmentInGame.this.getFragmentManager().popBackStack();
+                }
                 ((MainActivity) getActivity()).viewPager.setPagingEnabled(true);
             }
         }.start();
     }
 
     public int getRandomNumber(int first, int second) {
-        int min = first;
-        int max = second;
-
         Random random = new Random();
-        int randomNumber = random.nextInt(max - min + 1) + min;
-        return randomNumber;
+        return random.nextInt(second - first + 1) + first;
     }
 
     public void LaunchClickGame(LayoutInflater inflater, ViewGroup container, View view,
-                                RelativeLayout fasttapcontainer, final TextView score, final TextView tap) {
-        numbermin = 0;
-        numbermax = 1;
+                                RelativeLayout fastTapContainer, final TextView score, final TextView tap) {
+        numberMin = 0;
+        numberMax = 1;
 
 
-        number = getRandomNumber(numbermin, numbermax);
+        number = getRandomNumber(numberMin, numberMax);
 
-        startTimer(inflater, container, view);
+        startTimer(view);
 
         if (number == 0) {
             tap.setText("Tap");
@@ -114,14 +106,14 @@ public class FastTapFragmentInGame extends Fragment implements GestureDetector.O
             tap.setText("Looong tap");
         }
 
-        fasttapcontainer.setOnClickListener(new View.OnClickListener() {
+        fastTapContainer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (number == 0) {
                     tap.setText("Tap");
                     scoreTotal = scoreTotal + 1;
                     score.setText("Score : " + scoreTotal);
-                    number = getRandomNumber(numbermin, numbermax);
+                    number = getRandomNumber(numberMin, numberMax);
 
                     if (number == 0) {
                         tap.setText("Tap");
@@ -135,14 +127,14 @@ public class FastTapFragmentInGame extends Fragment implements GestureDetector.O
         });
 
 
-        fasttapcontainer.setOnLongClickListener(new View.OnLongClickListener() {
+        fastTapContainer.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
                 if (number == 1) {
                     tap.setText("Looong tap");
                     scoreTotal = scoreTotal + 5;
                     score.setText("Score : " + scoreTotal);
-                    number = getRandomNumber(numbermin, numbermax);
+                    number = getRandomNumber(numberMin, numberMax);
                     if (number == 0) {
                         tap.setText("Tap");
                     } else {
@@ -158,16 +150,17 @@ public class FastTapFragmentInGame extends Fragment implements GestureDetector.O
         });
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     public void LaunchSwipeGame(LayoutInflater inflater, ViewGroup container, View view,
                                 RelativeLayout fasttapcontainer, final TextView score, final TextView tap) {
 
-        numbermin = 0;
-        numbermax = 3;
+        numberMin = 0;
+        numberMax = 3;
         gestureDetector = new GestureDetector(getContext(), this);
 
 
         generate();
-        startTimer(inflater, container, view);
+        startTimer(view);
 
 
         View.OnTouchListener gestureListener = new View.OnTouchListener() {
@@ -246,7 +239,7 @@ public class FastTapFragmentInGame extends Fragment implements GestureDetector.O
     }
 
     public void generate() {
-        number = getRandomNumber(numbermin, numbermax);
+        number = getRandomNumber(numberMin, numberMax);
 
         if (number == 0) {
             tap.setText("Swipe LEFT");

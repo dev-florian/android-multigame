@@ -15,21 +15,19 @@ import io.realm.RealmQuery;
 
 public class ShowPlayerActivity extends AppCompatActivity {
 
-    private RecyclerView recyclerView;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.show_player_activity);
-        recyclerView = findViewById(R.id.show_players);
+        RecyclerView recyclerView = findViewById(R.id.show_players);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(new PlayerAdapter(getAllPlayers()));
     }
 
     private ArrayList<Player> getAllPlayers() {
         Realm mRealmInstance = Realm.getDefaultInstance();
-        RealmQuery query = mRealmInstance.where(Player.class);
-        return new ArrayList<Player>(query.findAll());
+        RealmQuery<Player> query = mRealmInstance.where(Player.class);
+        return new ArrayList<>(query.findAll());
     }
 
     @Override
