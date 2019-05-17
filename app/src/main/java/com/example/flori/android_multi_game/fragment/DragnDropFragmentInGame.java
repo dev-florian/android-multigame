@@ -30,6 +30,8 @@ import com.example.flori.android_multi_game.utils.GameUtils;
 import java.util.Objects;
 import java.util.Random;
 
+import io.realm.Realm;
+
 public class DragnDropFragmentInGame extends Fragment implements View.OnDragListener {
     private int scoreTotal = 0;
     private TextView score;
@@ -105,9 +107,16 @@ public class DragnDropFragmentInGame extends Fragment implements View.OnDragList
             }
 
             public void onFinish() {
-
+                Realm mRealmInstance = Realm.getDefaultInstance();
+                mRealmInstance.beginTransaction();
                 Player player = PlayerManager.getInstance().getPlayer();
-                player.setScoreDragndrop(scoreTotal);
+                try {
+                    player.setScoreDragndrop(scoreTotal);
+                    mRealmInstance.copyToRealmOrUpdate(player);
+                    mRealmInstance.commitTransaction();
+                } catch (Exception ignored) {
+
+                }
                 Intent intent = new Intent(getActivity(), EndGameActivity.class);
                 intent.putExtra("SCORE", scoreTotal);
                 GameUtils.launchView((AppCompatActivity) Objects.requireNonNull(getActivity()), intent, false);

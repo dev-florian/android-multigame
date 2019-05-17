@@ -103,7 +103,7 @@ public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSe
     public void onTabSelected(TabLayout.Tab tab) {
         for (Fragment fragment : getSupportFragmentManager().getFragments()) {
             for (Fragment subFragment : fragment.getChildFragmentManager().getFragments()) {
-                if (subFragment instanceof FastTapFragmentInGame) {
+                if (subFragment instanceof SettingsFragment) {
                     if (subFragment.getFragmentManager() != null) {
                         subFragment.getFragmentManager().popBackStack();
                     }

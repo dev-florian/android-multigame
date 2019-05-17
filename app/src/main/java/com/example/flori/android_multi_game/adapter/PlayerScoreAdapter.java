@@ -25,10 +25,12 @@ public class PlayerScoreAdapter extends RecyclerView.Adapter<PlayerScoreAdapter.
 
     private ArrayList<String> games;
     private ArrayList<Integer> scores;
+    private String playerName;
 
-    public PlayerScoreAdapter(ArrayList<Integer> scores, ArrayList<String> games) {
+    public PlayerScoreAdapter(ArrayList<Integer> scores, ArrayList<String> games, String name) {
         this.scores = scores;
         this.games = games;
+        this.playerName = name;
     }
 
     @NonNull
@@ -43,12 +45,14 @@ public class PlayerScoreAdapter extends RecyclerView.Adapter<PlayerScoreAdapter.
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int position) {
+
         final String game = games.get(position);
         final int score = scores.get(position);
-
+        final String playerName = this.playerName;
 
         viewHolder.gameName.setText(game);
-        viewHolder.scoreGame.setText(score);
+        viewHolder.scoreGame.setText(String.valueOf(score));
+        viewHolder.playerName.setText(playerName);
 
     }
 
@@ -60,12 +64,14 @@ public class PlayerScoreAdapter extends RecyclerView.Adapter<PlayerScoreAdapter.
     class ViewHolder extends RecyclerView.ViewHolder {
         private TextView scoreGame;
         private TextView gameName;
+        private TextView playerName;
         private LinearLayout scoreRow;
 
         ViewHolder(View itemView) {
 
             super(itemView);
             gameName = itemView.findViewById(R.id.settings_game_name);
+            playerName = itemView.findViewById(R.id.show_player_name);
             scoreGame = itemView.findViewById(R.id.settings_score);
             scoreRow = itemView.findViewById(R.id.show_score);
 

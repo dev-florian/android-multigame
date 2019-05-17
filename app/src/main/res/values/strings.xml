@@ -45,4 +45,16 @@
     <string name="settings_title">Paramètres</string>
     <string name="settings_score">0</string>
     <string name="settings_game_name">Name of game</string>
+
+    <string name="profil_title">Profil</string>
+    <string name="profil_name">Thubé</string>
+    <string name="profil_firstname">florian</string>
+    <string name="profil_age">20</string>
+    <string name="profil_localisation">Annecy</string>
+    <string name="profil_update">Mettre à jour</string>
+    <string name="profil_delete">Supprimer le joueur</string>
+    <string name="profil_ipac_score">Ipac Game : 0</string>
+    <string name="profil_drag_score">DragNDrop Game : 0</string>
+    <string name="profil_fasttap_score">Fasttap Game : 0</string>
+    <string name="profil_swipe_score">Swipe Game : 0</string>
 </resources>

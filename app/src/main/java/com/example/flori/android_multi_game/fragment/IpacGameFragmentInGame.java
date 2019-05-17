@@ -28,6 +28,8 @@ import com.example.flori.android_multi_game.utils.GameUtils;
 
 import java.util.Objects;
 
+import io.realm.Realm;
+
 public class IpacGameFragmentInGame extends Fragment {
 
     private static final int NUMBER_OF_TRY = 10;
@@ -86,9 +88,19 @@ public class IpacGameFragmentInGame extends Fragment {
 
 
                     if (number == numberToFind) {
+                        Realm mRealmInstance = Realm.getDefaultInstance();
+                        mRealmInstance.beginTransaction();
+
                         Player player = PlayerManager.getInstance().getPlayer();
 
-                        player.setScoreIpac(numberRemaining);
+                        try {
+                            player.setScoreIpac(numberRemaining);
+                            mRealmInstance.copyToRealmOrUpdate(player);
+                            mRealmInstance.commitTransaction();
+                        } catch (Exception ignored) {
+
+                        }
+
 
                         Intent intent = new Intent(getActivity(), EndGameActivity.class);
                         intent.putExtra("SCORE", numberRemaining);

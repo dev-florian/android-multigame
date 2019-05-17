@@ -28,10 +28,12 @@ public class SettingsFragment extends Fragment {
         super.onCreate(savedInstanceState);
         View view = inflater.inflate(R.layout.fragment_settings, container, false);
 
-        RecyclerView recyclerView = view.findViewById(R.id.fragment_settings);
+        RecyclerView recyclerView = view.findViewById(R.id.show_all_score);
         recyclerView.setLayoutManager(new LinearLayoutManager(this.getContext()));
-        recyclerView.setAdapter(new PlayerScoreAdapter(getAllScores(), getAllGames()));
+        recyclerView.setAdapter(new PlayerScoreAdapter(getAllScores(), getAllGames(), getFirstName()));
 
+
+        recyclerView.getAdapter().notifyDataSetChanged();
         return view;
     }
 
@@ -53,6 +55,12 @@ public class SettingsFragment extends Fragment {
         games.add("Fast Tap");
         games.add("Ipac");
         return games;
+    }
+
+    private String getFirstName() {
+        Player player = PlayerManager.getInstance().getPlayer();
+        String firstName = player.getFirstName();
+        return firstName;
     }
 
 }

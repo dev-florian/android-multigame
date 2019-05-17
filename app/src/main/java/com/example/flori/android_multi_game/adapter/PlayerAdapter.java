@@ -12,9 +12,11 @@ import android.widget.TextView;
 
 import com.example.flori.android_multi_game.MainActivity;
 import com.example.flori.android_multi_game.R;
+import com.example.flori.android_multi_game.ShowDataPlayerActivity;
 import com.example.flori.android_multi_game.manager.PlayerManager;
 import com.example.flori.android_multi_game.model.Player;
 import com.example.flori.android_multi_game.utils.GameUtils;
+import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -44,8 +46,17 @@ public class PlayerAdapter extends RecyclerView.Adapter<PlayerAdapter.ViewHolder
         viewHolder.firstName.setText(player.getFirstName());
         viewHolder.name.setText(player.getName());
 
-        Picasso.get().load(player.getPicture()).into(viewHolder.image);
+        Picasso.get().load(player.getPicture()).into(viewHolder.image, new Callback() {
+            @Override
+            public void onSuccess() {
+                String a ="";
+            }
 
+            @Override
+            public void onError(Exception e) {
+                String a ="";
+            }
+        });
 
         viewHolder.playerRow.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -54,6 +65,17 @@ public class PlayerAdapter extends RecyclerView.Adapter<PlayerAdapter.ViewHolder
                 GameUtils.launchView((AppCompatActivity)v.getContext(), MainActivity.class, true);
             }
         });
+
+        viewHolder.playerRow.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                PlayerManager.getInstance().setPlayer(player);
+                GameUtils.launchView((AppCompatActivity)v.getContext(), ShowDataPlayerActivity.class, true);
+                return true;
+            }
+        });
+
+
     }
 
     @Override

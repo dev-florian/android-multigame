@@ -138,8 +138,8 @@ public class CreatePlayerActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == REQUEST_PICK_PICTURE && resultCode == RESULT_OK) {
-            pathImg = Objects.requireNonNull(data.getData()).getPath();
             Picasso.get().load(data.getData()).into(player_image);
+            pathImg = data.getData().toString();
         }
     }
 

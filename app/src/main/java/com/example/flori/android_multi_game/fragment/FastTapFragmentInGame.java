@@ -26,6 +26,8 @@ import com.example.flori.android_multi_game.utils.GameUtils;
 import java.util.Objects;
 import java.util.Random;
 
+import io.realm.Realm;
+
 public class FastTapFragmentInGame extends Fragment implements GestureDetector.OnGestureListener {
     private int scoreTotal = 0;
     private int numberMin;
@@ -74,13 +76,32 @@ public class FastTapFragmentInGame extends Fragment implements GestureDetector.O
             }
 
             public void onFinish() {
+                Realm mRealmInstance = Realm.getDefaultInstance();
+                mRealmInstance.beginTransaction();
+
 
                 Player player = PlayerManager.getInstance().getPlayer();
+
+
                 if (gameName == "fasttap") {
-                    player.setScoreFasttap(scoreTotal);
+                    try {
+                        player.setScoreFasttap(scoreTotal);
+                        mRealmInstance.copyToRealmOrUpdate(player);
+                        mRealmInstance.commitTransaction();
+                    } catch (Exception ignored) {
+
+                    }
+
                 }
                 if (gameName == "swipe") {
-                    player.setScoreSwipe(scoreTotal);
+                    try {
+                        player.setScoreSwipe(scoreTotal);
+                        mRealmInstance.copyToRealmOrUpdate(player);
+                        mRealmInstance.commitTransaction();
+                    } catch (Exception ignored) {
+
+                    }
+
                 }
 
 
